@@ -1,12 +1,6 @@
-import json
-from functools import lru_cache
-from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-# Shared helpers for loading transit data and formatting path responses.
-
-DATA_DIR = Path(__file__).parent / "data"
-
+# Shared helpers for formatting path responses.
 
 def get_edge_type(source: str, target: str, edges: Dict[str, str]) -> str:
     """Return the edge type between two stations if present."""
@@ -80,7 +74,7 @@ def format_route(
     edges: Dict[str, str],
     fares: Dict[str, float],
 ) -> dict:
-    """Convert a raw station path into the response payload described in README.md."""
+    """Convert a raw station path into the response payload."""
     if not path:
         return {}
 

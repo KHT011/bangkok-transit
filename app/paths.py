@@ -1,12 +1,12 @@
 from fastapi import APIRouter, HTTPException
 from typing import Optional
-from app.schemas import PathRequest, PathResponse
+from app.schemas import PathRequest, PathResponse, AllPathResponse
 from app.shortest_path import find_shortest_path
 from app.cheapest_path import find_cheapest_path
 from app.all_path import find_all_paths
 from app import state
 
-router = APIRouter(prefix="/paths", tags=["railway"])
+router = APIRouter(prefix="/paths", tags=["transit"])
 
 def shortest_path(start_station_code: str, end_station_code: str) -> PathResponse:
     """
@@ -55,20 +55,20 @@ def cheapest_path(start_station_code: str, end_station_code: str) -> PathRespons
             data=None
         )
 
-def all_paths(start_station_code: str, end_station_code: str) -> PathResponse:
+def all_paths(start_station_code: str, end_station_code: str) -> AllPathResponse:
     """
     Find multiple path options between two stations.
     """
-    path = find_all_paths(start_station_code, end_station_code)
+    paths = find_all_paths(start_station_code, end_station_code)
 
-    if path:
-        return PathResponse(
+    if paths:
+        return AllPathResponse(
             status="success",
-            message="Multiple paths found successfully.",
-            data=path
+            message=f"{len(paths)} paths found successfully.",
+            data=paths
         )
     else:
-        return PathResponse(
+        return AllPathResponse(
             status="error",
             message="No paths found between the specified stations.",
             data=None
@@ -76,7 +76,7 @@ def all_paths(start_station_code: str, end_station_code: str) -> PathResponse:
     
 
 @router.post("/")
-def paths(request: PathRequest) -> Optional[PathResponse]:
+def paths(request: PathRequest) -> Optional[PathResponse] | Optional[AllPathResponse]:
     """
     Find path based on criteria: "shortest", "cheapest", or "all".
     """

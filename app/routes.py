@@ -1,11 +1,9 @@
-from fastapi import APIRouter, HTTPException
-from pathlib import Path
-import json
+from fastapi import APIRouter
 from typing import List
 from app.schemas import Station, Line
 from app import state
 
-router = APIRouter(prefix="/api", tags=["railway"])
+router = APIRouter(prefix="/api", tags=["transit"])
 
 @router.get("/stations/", response_model=List[Station])
 async def get_stations():
@@ -38,4 +36,3 @@ async def get_stations():
         stations.append(station)
     
     return stations
-

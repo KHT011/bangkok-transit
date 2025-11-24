@@ -172,3 +172,6 @@ temp/
 
 # Gemini
 GEMINI.md
+
+# Jupyter
+app/testing.ipynb
