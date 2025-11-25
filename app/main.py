@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 from app.routes import router
 from app.paths import router as paths_router
@@ -22,10 +23,7 @@ app.include_router(paths_router)
 
 @app.get("/")
 async def root():
-    return {
-        "message": "Bangkok Railway API",
-        "version": "1.0.0",
-    }
+    return FileResponse("app/static/index.html")
 
 
 @app.get("/health")

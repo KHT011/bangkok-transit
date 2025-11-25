@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 80
 
-CMD ["fastapi", "run", "app/main.py" "--host", "0.0.0.0", "--port", "80"]
+CMD fastapi run app/main.py --host 0.0.0.0 --port 80

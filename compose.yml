@@ -1,6 +1,6 @@
 services:
   web:
-    container_name: bangkok_railway_json
+    container_name: bangkok_transit
     build: .
     restart: unless-stopped
     ports:
