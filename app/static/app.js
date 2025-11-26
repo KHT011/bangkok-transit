@@ -1,7 +1,9 @@
 const ENDPOINTS = {
-    stations: '/api/stations/',
+    stations: '/stations/',
     paths: '/paths/'
 };
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
 
 const elements = {
     form: document.getElementById('path-form'),
@@ -11,6 +13,8 @@ const elements = {
     suggestions: document.getElementById('station-suggestions'),
     status: document.getElementById('status'),
     pathsContainer: document.getElementById('paths-container'),
+    mapOverlay: document.getElementById('route-overlay'),
+    mapStatus: document.getElementById('map-status'),
     submitButton: document.querySelector('.cta')
 };
 
@@ -20,14 +24,65 @@ const state = {
 };
 
 const curatedTrips = [
-    { from: 'N24', to: 'BL01', note: 'BTS north terminus down to Tao Poon blue line hub' },
-    { from: 'Siam', to: 'Si Lom', note: 'Iconic transfer between core city grids' },
+    { from: 'N24', to: 'BL01', note: 'BTS north terminal down to Tao Poon blue line hub' },
+    { from: 'E01', to: 'BL26', note: 'Iconic transfer between core city grids' },
     { from: 'A01', to: 'N08', note: 'Airport Rail Link into Sukhumvit spine' }
 ];
 
 function setStatus(message, tone = 'neutral') {
     elements.status.textContent = message;
     elements.status.dataset.tone = tone;
+}
+
+function clearMap(message = 'Select a path card to plot its geometry.') {
+    if (elements.mapOverlay) {
+        elements.mapOverlay.innerHTML = '';
+    }
+    if (elements.mapStatus && message) {
+        elements.mapStatus.textContent = message;
+    }
+}
+
+function plotPathOnMap(path, card) {
+    if (!elements.mapOverlay) {
+        return;
+    }
+    const stations = path?.stations || [];
+    if (!stations.length) {
+        clearMap('No coordinates available for this route.');
+        return;
+    }
+
+    const cards = elements.pathsContainer?.querySelectorAll('.path-card') || [];
+    cards.forEach((node) => node.classList.remove('active'));
+    if (card) {
+        card.classList.add('active');
+    }
+
+    const overlay = elements.mapOverlay;
+    overlay.innerHTML = '';
+    const points = stations.map((station) => `${station.x},${station.y}`).join(' ');
+    const polyline = document.createElementNS(SVG_NS, 'polyline');
+    polyline.setAttribute('points', points);
+    overlay.appendChild(polyline);
+
+    stations.forEach((station, index) => {
+        const circle = document.createElementNS(SVG_NS, 'circle');
+        circle.setAttribute('cx', station.x);
+        circle.setAttribute('cy', station.y);
+        circle.setAttribute('r', index === 0 || index === stations.length - 1 ? 5 : 3.25);
+        circle.classList.add('route-node');
+        if (index === 0 || index === stations.length - 1) {
+            circle.classList.add('terminal');
+        } else {
+            circle.classList.add('waypoint');
+        }
+        overlay.appendChild(circle);
+    });
+
+    if (elements.mapStatus) {
+        elements.mapStatus.textContent = `${path.start_station_code} → ${path.end_station_code} (${formatPathType(path.path_type)})`;
+    }
 }
 
 function createOption(station) {
@@ -96,15 +151,24 @@ function renderPaths(payload) {
     if (!paths.length) {
         setStatus('No route data returned. Try a different station pair.', 'error');
         elements.pathsContainer.innerHTML = '';
+        clearMap('No geometry available.');
         return;
     }
 
     setStatus(payload.message || `Showing ${paths.length} option(s).`, 'success');
     elements.pathsContainer.innerHTML = '';
 
+    const cards = [];
     paths.forEach((path) => {
-        elements.pathsContainer.appendChild(createPathCard(path));
+        const card = createPathCard(path);
+        card.addEventListener('click', () => plotPathOnMap(path, card));
+        elements.pathsContainer.appendChild(card);
+        cards.push({ card, path });
     });
+
+    if (cards.length) {
+        plotPathOnMap(cards[0].path, cards[0].card);
+    }
 }
 
 function createPathCard(path) {
@@ -204,6 +268,7 @@ async function submitForm(event) {
         console.error(error);
         setStatus(error.message || 'Unable to calculate path.', 'error');
         elements.pathsContainer.innerHTML = '';
+        clearMap('Unable to plot this route.');
     } finally {
         elements.submitButton.disabled = false;
     }

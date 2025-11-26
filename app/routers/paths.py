@@ -6,7 +6,7 @@ from app.cheapest_path import find_cheapest_path
 from app.all_path import find_all_paths
 from app import state
 
-router = APIRouter(prefix="/paths", tags=["transit"])
+router = APIRouter()
 
 def shortest_path(start_station_code: str, end_station_code: str) -> PathResponse:
     """

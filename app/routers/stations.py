@@ -3,9 +3,9 @@ from typing import List
 from app.schemas import Station, Line
 from app import state
 
-router = APIRouter(prefix="/api", tags=["transit"])
+router = APIRouter()
 
-@router.get("/stations/", response_model=List[Station])
+@router.get("/", response_model=List[Station])
 async def get_stations():
     """
     Get all stations with transformed structure.

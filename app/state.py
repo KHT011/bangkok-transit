@@ -4,12 +4,6 @@ from typing import Dict, List, Tuple
 from collections import defaultdict
 from app.path_utils import fare_between
 
-# Global state
-stations: Dict[str, dict] = {}
-edges: Dict[str, str] = {}
-fares: Dict[str, float] = {}
-# graph: Dict[str, List[Tuple[str, str]]] = {}
-
 DATA_DIR = Path(__file__).parent / "data"
 
 class Graph:
@@ -28,7 +22,11 @@ class Graph:
 
     def get_node(self, u):
         return self.nodes.get(u)
-    
+
+# Global state
+stations: Dict[str, dict] = {}
+edges: Dict[str, str] = {}
+fares: Dict[str, float] = {}    
 graph: Graph = Graph()
 
 def build_graph_from_edges(edges_data: Dict[str, str]) -> Dict[str, List[Tuple[str, str]]]:

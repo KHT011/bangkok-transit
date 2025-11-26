@@ -83,9 +83,9 @@ def format_route(
 
     label = path_type.upper().replace("-", " ")
     if label.startswith("OPTION"):
-        description_lines = [f"=== {label} ==="]
+        description_lines = [f"{label}"]
     else:
-        description_lines = [f"=== {label} PATH ==="]
+        description_lines = [f"{label} PATH"]
     route_steps: List[dict] = []
     fare_breakdown: List[dict] = []
     fare_total = 0.0

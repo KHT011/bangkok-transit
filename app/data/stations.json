@@ -1,9 +1,4 @@
 {
-  "metadata": {
-    "version": "1.0",
-    "exported_at": "2025-11-20T14:08:35.320065",
-    "total_stations": 197
-  },
   "stations": {
     "A01": {
       "id": 1,
@@ -2552,19 +2547,6 @@
       "place_name_en": "Muang Thong Thani",
       "x": 0.0,
       "y": 0.0
-    },
-    "N3": {
-      "id": 197,
-      "station_code": "N3",
-      "station_short_name": "N3",
-      "name_en": "New Station",
-      "name_thai": "สถานีใหม่",
-      "line_id": 11,
-      "line_name_en": "Sukhumvit Line",
-      "place_id": 215,
-      "place_name_en": "Bangkok",
-      "x": 100.5,
-      "y": 13.5
     }
   }
 }
