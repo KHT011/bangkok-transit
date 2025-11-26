@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Kodchasan:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="styles.css">
     <script defer src="app.js"></script>
 </head>
@@ -17,7 +18,7 @@
     <div class="background-veil" aria-hidden="true"></div>
     <header class="hero">
         <p class="eyebrow">Bangkok Railway Studio</p>
-        <h1>Plan your ride with ease</h1>
+        <h1>Plan your ride with ease<h1> 
         <p class="lead">
             Cross-check BTS, MRT, Airport Rail Link and more with Graph based path-finding.
             Toggle between shortest, cheapest, or explore every viable combination in one swoop.
@@ -27,7 +28,7 @@
     <main class="dashboard">
         <section class="panel form-panel">
             <div class="panel-heading">
-                <span class="badge">Realtime Graph</span>
+                <span class="badge">Input</span>
                 <h2>Path composer</h2>
                 <p>Search stations by code, nickname, or line. Pick your objective and the studio will chart the rest.</p>
             </div>
@@ -65,13 +66,19 @@
                 <span class="badge badge-outline">Output</span>
                 <h2>Path roster</h2>
             </div>
+            <div class="map-preview">
+                <div class="map-shell">
+                    <img src="map.svg" alt="Bangkok transit map" class="map-image" loading="lazy">
+                    <svg id="route-overlay" class="route-overlay" viewBox="0 0 841.89 841.89" preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
+            </div>
             <div id="status" class="status-message">Load stations to begin planning.</div>
             <div id="paths-container" class="paths-container"></div>
         </section>
     </main>
 
     <footer class="footer">
-        <p>Made for the Bangkok Transit Map project • data refreshed via state.py loader</p>
+        <p>Made for the Bangkok Transit Map project of ITCS-503.</p>
     </footer>
 </body>
 

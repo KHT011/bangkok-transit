@@ -1,9 +1,4 @@
 {
-  "metadata": {
-    "version": "1.0",
-    "exported_at": "2025-11-20T14:08:35.324214",
-    "total_edges": 412
-  },
   "edges": {
     "N24:N23": "ride",
     "N23:N22": "ride",

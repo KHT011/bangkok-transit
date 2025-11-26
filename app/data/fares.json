@@ -1,9 +1,4 @@
 {
-  "metadata": {
-    "version": "1.0",
-    "exported_at": "2025-11-20T21:03:49.272885",
-    "total_fares": 7049
-  },
   "fares": {
     "PP01:PP02": 17.0,
     "PP01:PP03": 20.0,
