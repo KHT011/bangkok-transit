@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bangkok Transit Path Studio</title>
+    <meta name="description" content="Visualise Bangkok rail routes, compare fares, and find the optimal ride with the Path Studio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Kodchasan:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+</head>
+
+<body>
+    <div class="background-veil" aria-hidden="true"></div>
+    <header class="hero">
+        <p class="eyebrow">Bangkok Railway Studio</p>
+        <h1>Plan your ride with ease</h1>
+        <p class="lead">
+            Cross-check BTS, MRT, Airport Rail Link and more with Graph based path-finding.
+            Toggle between shortest, cheapest, or explore every viable combination in one swoop.
+        </p>
+    </header>
+
+    <main class="dashboard">
+        <section class="panel form-panel">
+            <div class="panel-heading">
+                <span class="badge">Realtime Graph</span>
+                <h2>Path composer</h2>
+                <p>Search stations by code, nickname, or line. Pick your objective and the studio will chart the rest.</p>
+            </div>
+            <form id="path-form">
+                <label class="field">
+                    <span>From station</span>
+                    <input type="text" id="start_station_code" name="start_station_code" list="station-list"
+                        placeholder="e.g. N24" autocomplete="off" required>
+                </label>
+                <label class="field">
+                    <span>To station</span>
+                    <input type="text" id="end_station_code" name="end_station_code" list="station-list"
+                        placeholder="e.g. BL01" autocomplete="off" required>
+                </label>
+                <label class="field">
+                    <span>Objective</span>
+                    <div class="toggle">
+                        <input type="radio" id="criteria-shortest" name="criteria" value="shortest" checked>
+                        <label for="criteria-shortest">Shortest</label>
+                        <input type="radio" id="criteria-cheapest" name="criteria" value="cheapest">
+                        <label for="criteria-cheapest">Cheapest</label>
+                        <input type="radio" id="criteria-all" name="criteria" value="all">
+                        <label for="criteria-all">All</label>
+                    </div>
+                </label>
+                <button type="submit" class="cta">Plot route</button>
+                <p class="hint">Powered by FastAPI.</p>
+            </form>
+            <datalist id="station-list"></datalist>
+            <div id="station-suggestions" class="suggestions" aria-live="polite"></div>
+        </section>
+
+        <section class="panel results-panel">
+            <div class="panel-heading">
+                <span class="badge badge-outline">Output</span>
+                <h2>Path roster</h2>
+            </div>
+            <div id="status" class="status-message">Load stations to begin planning.</div>
+            <div id="paths-container" class="paths-container"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Made for the Bangkok Transit Map project • data refreshed via state.py loader</p>
+    </footer>
+</body>
+
+</html>
