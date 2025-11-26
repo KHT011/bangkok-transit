@@ -1,83 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangkok Transit Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bangkok Transit Path Studio</title>
+    <meta name="description" content="Visualise Bangkok rail routes, compare fares, and find the optimal ride with the Path Studio.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Kodchasan:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
 </head>
 
 <body>
-    <h1>Bangkok Transit Map</h1>
-    <p>Find the desired path between two stations.</p>
-    <form action="/paths/" method="post">
-        <label for="start_station_code">Start Station Code:</label>
-        <input type="text" id="start_station_code" name="start_station_code">
-        <label for="end_station_code">End Station Code:</label>
-        <input type="text" id="end_station_code" name="end_station_code">
-        <label for="criteria">Criteria:</label>
-        <select name="criteria" id="criteria">
-            <option value="shortest">Shortest</option>
-            <option value="cheapest">Cheapest</option>
-            <option value="all">All</option>
-        </select>
-        <button type="submit">Find Path</button>
-    </form>
+    <div class="background-veil" aria-hidden="true"></div>
+    <header class="hero">
+        <p class="eyebrow">Bangkok Railway Studio</p>
+        <h1>Plan your ride with ease</h1>
+        <p class="lead">
+            Cross-check BTS, MRT, Airport Rail Link and more with Graph based path-finding.
+            Toggle between shortest, cheapest, or explore every viable combination in one swoop.
+        </p>
+    </header>
 
-    <div id="result">
-        <p>Path steps:</p>
-        <ul id="path_steps"></ul>
-        <p>Stations:</p>
-        <ul id="stations"></ul>
-        <p>Fare breakdown:</p>
-        <ul id="fare_breakdown"></ul>
-        <p>Total fare:</p>
-        <p id="total_fare"></p>
-    </div>
+    <main class="dashboard">
+        <section class="panel form-panel">
+            <div class="panel-heading">
+                <span class="badge">Realtime Graph</span>
+                <h2>Path composer</h2>
+                <p>Search stations by code, nickname, or line. Pick your objective and the studio will chart the rest.</p>
+            </div>
+            <form id="path-form">
+                <label class="field">
+                    <span>From station</span>
+                    <input type="text" id="start_station_code" name="start_station_code" list="station-list"
+                        placeholder="e.g. N24" autocomplete="off" required>
+                </label>
+                <label class="field">
+                    <span>To station</span>
+                    <input type="text" id="end_station_code" name="end_station_code" list="station-list"
+                        placeholder="e.g. BL01" autocomplete="off" required>
+                </label>
+                <label class="field">
+                    <span>Objective</span>
+                    <div class="toggle">
+                        <input type="radio" id="criteria-shortest" name="criteria" value="shortest" checked>
+                        <label for="criteria-shortest">Shortest</label>
+                        <input type="radio" id="criteria-cheapest" name="criteria" value="cheapest">
+                        <label for="criteria-cheapest">Cheapest</label>
+                        <input type="radio" id="criteria-all" name="criteria" value="all">
+                        <label for="criteria-all">All</label>
+                    </div>
+                </label>
+                <button type="submit" class="cta">Plot route</button>
+                <p class="hint">Powered by FastAPI.</p>
+            </form>
+            <datalist id="station-list"></datalist>
+            <div id="station-suggestions" class="suggestions" aria-live="polite"></div>
+        </section>
 
+        <section class="panel results-panel">
+            <div class="panel-heading">
+                <span class="badge badge-outline">Output</span>
+                <h2>Path roster</h2>
+            </div>
+            <div id="status" class="status-message">Load stations to begin planning.</div>
+            <div id="paths-container" class="paths-container"></div>
+        </section>
+    </main>
 
-    <script>
-        document.querySelector('form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = {};
-            for (const [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-            fetch('/paths/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector('#path_steps').innerHTML = '';
-                    data.data.route_steps.forEach(step => {
-                        const li = document.createElement('li');
-                        li.textContent = `${step.icon} ${step.action} ${step.station.code} ${step.station.name}`;
-                        document.querySelector('#path_steps').appendChild(li);
-                    });
-                    document.querySelector('#stations').innerHTML = '';
-                    data.data.stations.forEach(station => {
-                        const li = document.createElement('li');
-                        li.textContent = `${station.station_code}`;
-                        document.querySelector('#stations').appendChild(li);
-                    });
-                    document.querySelector('#fare_breakdown').innerHTML = '';
-                    data.data.fare_breakdown.forEach(fare => {
-                        const li = document.createElement('li');
-                        li.textContent = `${fare.agency} - ${fare.ride_hops} hops - ${fare.cost}`;
-                        document.querySelector('#fare_breakdown').appendChild(li);
-                    });
-                    document.querySelector('#total_fare').textContent = data.data.fare_total;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        });
-    </script>
+    <footer class="footer">
+        <p>Made for the Bangkok Transit Map project • data refreshed via state.py loader</p>
+    </footer>
 </body>
 
 </html>
