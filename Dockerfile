@@ -7,9 +7,7 @@ RUN npm install --include=dev --include=optional
 
 # Copy the frontend sources and build the production bundle
 COPY frontend .
-ARG VITE_API_BASE_URL=.
-ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
-RUN VITE_API_BASE_URL=${VITE_API_BASE_URL} npm run build
+RUN npm run build
 
 FROM python:3.12-slim
 WORKDIR /app

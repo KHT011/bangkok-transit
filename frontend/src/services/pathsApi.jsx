@@ -1,7 +1,7 @@
 import { fetchJson } from "../shared/lib/fetchJson";
 
-// Base URL for production + containerized builds
-const API_BASE = "https://bangkok-transit.onrender.com";
+// Base URL for production + containerized builds (same origin as FastAPI)
+const API_BASE = "";
 
 
 // Request shortest path between two station codes
