@@ -1,0 +1,16 @@
+# --- docker-compose.yml ---
+# This file orchestrates the building and running of your Docker container.
+
+version: '3.8'
+
+services:
+  bangkok-railway-frontend:
+    # Specifies to build the image from the current directory using the Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Maps port 8092 on your host machine to port 80 inside the container (where Nginx is listening)
+    ports:
+      - "5173:80"
+    # Ensures the container restarts automatically if it stops, unless manually stopped
+    restart: unless-stopped

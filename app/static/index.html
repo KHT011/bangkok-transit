@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bangkok Transit Path Studio</title>
+    <title>Bangkok Transit Map Studio</title>
     <meta name="description" content="Visualise Bangkok rail routes, compare fares, and find the optimal ride with the Path Studio.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
             <div class="panel-heading">
                 <span class="badge">Input</span>
                 <h2>Path composer</h2>
-                <p>Search stations by code, nickname, or line. Pick your objective and the studio will chart the rest.</p>
+                <p>Search stations by code, name, or line. Pick your objective and the studio will chart the rest.</p>
             </div>
             <form id="path-form">
                 <label class="field">
@@ -55,7 +55,6 @@
                     </div>
                 </label>
                 <button type="submit" class="cta">Plot route</button>
-                <p class="hint">Powered by FastAPI.</p>
             </form>
             <datalist id="station-list"></datalist>
             <div id="station-suggestions" class="suggestions" aria-live="polite"></div>

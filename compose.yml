@@ -1,18 +1,18 @@
 services:
-  web:
+  backend:
     container_name: bangkok_transit
-    build: .
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: .
     restart: unless-stopped
     ports:
-      - "7003:80"                    
-    volumes:
-      - .:/app                       
+      - "7003:80"
     environment:
-      - PYTHONPATH=/app         
+      - PYTHONPATH=/app
     networks:
       - app-network
-  
+
 networks:
   app-network:
     driver: bridge
-

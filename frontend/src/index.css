@@ -1,0 +1,64 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap");
+@import "tailwindcss";
+:root {
+  --bg-base: #080f1f;
+  --bg-2: #0f1b32;
+  --panel: rgba(16, 26, 46, 0.85);
+  --panel-strong: rgba(14, 22, 40, 0.95);
+  --border: rgba(255, 255, 255, 0.08);
+  --text-primary: #e6ecff;
+  --text-secondary: #95a7c7;
+  --accent: #6cf5d8;
+  --accent-2: #78c4ff;
+  --hot: #f178d1;
+}
+
+html,
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  padding-right: 0 !important;
+  background: radial-gradient(120% 90% at 15% 10%, #1f3562 0%, transparent 40%),
+    radial-gradient(110% 80% at 85% 5%, #3c1e4f 0%, transparent 45%),
+    radial-gradient(90% 70% at 30% 80%, #123145 0%, transparent 50%),
+    var(--bg-base);
+  color: var(--text-primary);
+  font-family: "Space Grotesk", "DM Sans", "Segoe UI", system-ui, -apple-system,
+    sans-serif;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.frosted-surface {
+  background: linear-gradient(145deg, rgba(17, 26, 46, 0.92), rgba(10, 15, 28, 0.95));
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.pill-badge {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+}
+
+.accent-glow {
+  box-shadow: 0 0 0 1px rgba(120, 196, 255, 0.2),
+    0 15px 50px rgba(120, 196, 255, 0.15);
+}
+
+
+

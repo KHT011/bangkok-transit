@@ -175,3 +175,6 @@ GEMINI.md
 
 # Jupyter notebooks
 *.ipynb
+
+# React
+node_modules/

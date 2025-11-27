@@ -94,6 +94,9 @@ function createOption(station) {
 
 function renderSuggestions() {
     elements.suggestions.innerHTML = '';
+    const title = document.createElement('h2');
+    title.textContent = 'Try these curated trips:';
+    elements.suggestions.appendChild(title);
     curatedTrips.forEach((trip) => {
         const stationLabel = state.stationLookup[trip.from]?.name_en || trip.from;
         const targetLabel = state.stationLookup[trip.to]?.name_en || trip.to;
