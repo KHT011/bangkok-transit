@@ -1,7 +1,7 @@
 import { fetchJson } from "../shared/lib/fetchJson";
 
-// Base API URL from Vite environment
-const API_BASE = `${import.meta.env.VITE_API_BASE_URL}/stations`;
+// Base API URL for production + containerized builds
+const API_BASE = "https://bangkok-transit.onrender.com/stations";
 
 // ---- API Functions ----
 

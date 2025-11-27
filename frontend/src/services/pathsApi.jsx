@@ -1,7 +1,7 @@
 import { fetchJson } from "../shared/lib/fetchJson";
 
-// Base URL from Vite environment
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+// Base URL for production + containerized builds
+const API_BASE = "https://bangkok-transit.onrender.com";
 
 
 // Request shortest path between two station codes
