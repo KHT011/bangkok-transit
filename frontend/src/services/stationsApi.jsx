@@ -1,4 +1,4 @@
-import { fetchJson } from "../shared/lib/fetchJson";
+import { fetchJson } from "../shared/lib/fetchJson.js";
 
 // Base API URL for production + containerized builds (same origin as FastAPI)
 const API_BASE = "/stations";
