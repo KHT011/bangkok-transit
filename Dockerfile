@@ -1,9 +1,9 @@
-FROM node:20-alpine AS frontend-builder
+FROM node:20-bullseye AS frontend-builder
 WORKDIR /frontend
 
-# Install frontend dependencies with the lockfile for reproducibility
+# Install frontend dependencies using the lockfile
 COPY frontend/package*.json ./
-RUN npm ci
+RUN npm install --include=dev --include=optional
 
 # Copy the frontend sources and build the production bundle
 COPY frontend .
