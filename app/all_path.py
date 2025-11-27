@@ -31,7 +31,7 @@ def _all_paths(graph: state.Graph, start_id: str, end_id: str, limit: int = 5) -
                 
     return paths
 
-def find_all_paths(from_station_code: str, to_station_code: str) -> Dict[str, object] | None:
+def find_all_paths(from_station_code: str, to_station_code: str) -> List[Dict[str, object]] | None:
     """
     Find the shortest path by station hops (penalizing transfers slightly).
     Returns a response dict shaped like the README example.
